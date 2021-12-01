@@ -5,7 +5,8 @@ This filters a blast ouput file (file format 6) to only include target sequences
 This program takes four arguments:
 - -i: The input file (an output file from blast in format 6)
 - -q: A tsv file where each line is the query sequence followed by the length of each sequence.
-- -o: The output file to save the results. If this option is not included, the results will print to the screen. 
+- -o: The output file to save the results. If this option is not included, the results will print to the screen.
+- -p: The percentage of the query length that the alignment length must be greater than or equal to.  
 - -names: If this option is included, only the target sequence name will be printed. Otherwise, the entire blastp line will be printed. 
 
 ### Examples:
