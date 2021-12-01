@@ -1,8 +1,7 @@
-##Somehow read the command line arguments
-
 import argparse, textwrap
 import sys
 
+# these will hold the aminio acids at the current residue position for genes in the specified group
 grass_list = []
 comm_list = []
 mono_list = []
@@ -77,6 +76,7 @@ def make_output_table(i):
             print(str(i + 1) + "\t" + description + "\t" + location)
         else: 
             print(str(i + 1) + "\t" + description)
+            
 def test(list1, list2, name):
     tag = ""
     if ( (all_equal (list1)) & (not_equal (list2, list1))): 
