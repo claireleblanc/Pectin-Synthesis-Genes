@@ -8,3 +8,6 @@ Remove Short Genes:
 
 Fasta File:
 - Creates fasta files from a list of gene names and a fasta file of sequences. Code take from (FIND AUTHOR) and updated. 
+
+CDS names from protein names: 
+- Creates a new gene name file, changing genes that have differing names in the protein and cds sequence files. 
