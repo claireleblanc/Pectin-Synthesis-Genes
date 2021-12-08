@@ -5,3 +5,6 @@ Alignment code:
 
 Remove Short Genes:
 - Removes genes that are short/potentially incorrectly sequenced by removing genes that have an alignment length that is less than some percentage of the query sequence length. 
+
+Fasta File:
+- Creates fasta files from a list of gene names and a fasta file of sequences. Code take from (FIND AUTHOR) and updated. 
