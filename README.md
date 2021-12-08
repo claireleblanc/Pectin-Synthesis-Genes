@@ -11,3 +11,6 @@ Fasta File:
 
 CDS names from protein names: 
 - Creates a new gene name file, changing genes that have differing names in the protein and cds sequence files. 
+
+HMM Search: 
+- Extracts the genes that were identified from an HMM search (--tblout format)
