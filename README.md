@@ -14,3 +14,6 @@ CDS names from protein names:
 
 HMM Search: 
 - Extracts the genes that were identified from an HMM search (--tblout format)
+
+Remove GT24 genes: 
+- Compares results from hmmscan on GT8 domain and GT24 domain, only keeps genes where GT8 is more significant (prevents misidentification of GT24 genes as GT8 genes)
