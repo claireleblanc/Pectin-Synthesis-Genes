@@ -1,3 +1,10 @@
+"""
+Author: Claire LeBlanc
+Last updated: 12/14/2021
+
+Overview: Creates file with the names of genes identified with hmmsearch. 
+"""
+
 import csv
 import argparse, textwrap
 import sys
