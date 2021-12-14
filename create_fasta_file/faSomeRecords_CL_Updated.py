@@ -1,5 +1,11 @@
 #!/usr/bin/env python
-# faSomeRecords.py
+"""
+Author: santiagosnchez
+Updated for current project by Claire LeBlanc
+Last updated: 12/14/2021
+
+Overview: Creates a fasta file containing sequences for desired genes. 
+""" 
 
 import argparse, textwrap
 import sys
