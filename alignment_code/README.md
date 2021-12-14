@@ -1,4 +1,9 @@
-## How to use this code: 
+## Overview: 
+
+interestingRes_v2.py analyzes the alignments as described bellow. 
+clade_analysis.py and clade_analysis_2.py are two wrapper programs that allow running of these analyses in bulk. They are also described in more detail below. 
+
+## How to use interestingRes_v2.py: 
 
 Given a sequence alignment, this code will identify locations in the alignment where groups are different from eachother. It is configured to compare grasses, non-grass commelinids, non-commelinid monocots, and dicots, but it could easily be configured to compare different groups. 
 
@@ -21,6 +26,26 @@ There are a few other options in the code.
 - -struct: If a partial structure has been predicted for a gene, then this option will check if the identified alignment sequence position is within the structure. 
   - Use -ss to identify the starting postition of the predicted structure within the alignment, and use -se to identify the ending position.  
 
-### Examples
+### Example
 
 python3 interestingRes.py -i "../../Downloads/alignments_3/clade1_3.fa.mafft.align" -aa -gr 3 15 -c 16 -cr 1 2 -mr 17 24 
+
+## How to clade_analysis.py 
+This code runs the alignment analysis for multiple clades, but does not include the structure analysis. To run this code, you need: 
+- i: a file where each column header is the clade name, and then below that column is a list of all the genes in that clade (example in this folder titled all_GAUT_clade_names.txt)
+- -o: an output path (the folder where you want the output files to be saved) 
+
+### Example
+
+python3 reference/clade_analysis.py -i Final_Data/RRTs/clade_analysis/all_RRT_clade_names.txt -o Final_Data/RRTs/clade_analysis/
+
+## How to clade_analysis_2.py 
+This code runs the alignment analysis for multiple clades, and includes the structure analysis. To run this code, you need: 
+- -i: a file where each column header is the clade name, and then below that column is a list of all the genes in that clade (example file in this folder titled all_GAUT_clade_names.txt)
+- -o: an output path (the folder where you want the output files to be saved) 
+- -s: a file containing the structural information. Specifically, the first column should be the clade name (matching the clade name in the first file exactly), the second column should be a representative protein from that clade for which a partial structure has been predicted, the third column should be the first five amino acids of the predicted structure, and the last column should be the last five amino acids of the predicted structure (example file in this folder titled GAUT_struct_data.txt)
+
+### Example
+
+python3 reference/clade_analysis_2.py -i Final_Data/GAUT_GAL/clade_analysis/GAUT/all_GAUT_clade_names.txt -o Final_Data/GAUT_GATL/clade_analysis/GAUT/ -s Final_Data/GAUT_GATL/clade_analysis/GAUT/GAUT_struct_data.txt
+
