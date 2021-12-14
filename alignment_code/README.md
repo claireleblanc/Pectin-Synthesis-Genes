@@ -28,9 +28,7 @@ There are a few other options in the code.
 
 ### Example
 
-'''dif
-python3 interestingRes.py -i "../../Downloads/alignments_3/clade1_3.fa.mafft.align" -aa -gr 3 15 -c 16 -cr 1 2 -mr 17 24
-''' 
+`python3 interestingRes.py -i "../../Downloads/alignments_3/clade1_3.fa.mafft.align" -aa -gr 3 15 -c 16 -cr 1 2 -mr 17 24` 
 
 ## How to clade_analysis.py 
 This code runs the alignment analysis for multiple clades, but does not include the structure analysis. To run this code, you need: 
@@ -39,7 +37,7 @@ This code runs the alignment analysis for multiple clades, but does not include 
 
 ### Example
 
-python3 reference/clade_analysis.py -i Final_Data/RRTs/clade_analysis/all_RRT_clade_names.txt -o Final_Data/RRTs/clade_analysis/
+`python3 reference/clade_analysis.py -i Final_Data/RRTs/clade_analysis/all_RRT_clade_names.txt -o Final_Data/RRTs/clade_analysis/`
 
 ## How to clade_analysis_2.py 
 This code runs the alignment analysis for multiple clades, and includes the structure analysis. To run this code, you need: 
@@ -49,5 +47,5 @@ This code runs the alignment analysis for multiple clades, and includes the stru
 
 ### Example
 
-python3 reference/clade_analysis_2.py -i Final_Data/GAUT_GAL/clade_analysis/GAUT/all_GAUT_clade_names.txt -o Final_Data/GAUT_GATL/clade_analysis/GAUT/ -s Final_Data/GAUT_GATL/clade_analysis/GAUT/GAUT_struct_data.txt
+`python3 reference/clade_analysis_2.py -i Final_Data/GAUT_GAL/clade_analysis/GAUT/all_GAUT_clade_names.txt -o Final_Data/GAUT_GATL/clade_analysis/GAUT/ -s Final_Data/GAUT_GATL/clade_analysis/GAUT/GAUT_struct_data.txt`
 
