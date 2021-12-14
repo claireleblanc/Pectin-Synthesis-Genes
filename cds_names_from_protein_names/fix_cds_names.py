@@ -1,3 +1,11 @@
+"""
+Author: Claire LeBlanc
+Last updated: 12/14/2021
+
+Overview: The gene names in the cds sequence files are slightly different than the gene names in the protein files. 
+This code specifically adds .1 after every Zosma gene, changes Potri.017G101301.1 to Potri.017G101300.1, and changes 
+Potri.019G080901.1 to Potri.019G080900.1. These changes are necessary for faSomeRecords to work. 
+"""
 import argparse, textwrap
 import sys
 
@@ -21,16 +29,26 @@ if args.outPath is not None:
 
 lines = inFile.readlines()
 j = 0
-while (j < len(lines)-1):
+while (j < len(lines)):
     line = lines[j]
-    if "Zosma" in line: 
-        name = line[:-1] + ".1"
-        print(name)
-    elif line[:-1] == "Potri.017G101301.1":
-        print("Potri.017G101300.1")
-    elif line[:-1] == "Potri.019G080901.1":
-        print("Potri.019G080900.1")
-    else:
-        print(line[:-1])
+    if (line[-1] == '\n'): 
+        if "Zosma" in line: 
+            name = line[:-1] + ".1"
+            print(name)
+        elif line[:-1] == "Potri.017G101301.1":
+            print("Potri.017G101300.1")
+        elif line[:-1] == "Potri.019G080901.1":
+            print("Potri.019G080900.1")
+        else:
+            print(line[:-1])
+    else: 
+        if "Zosma" in line: 
+            name = line + ".1"
+            print(name)
+        elif line == "Potri.017G101301.1":
+            print("Potri.017G101300.1")
+        elif line == "Potri.019G080901.1":
+            print("Potri.019G080900.1")
+        else:
+            print(line)
     j+=1
-print(line)
