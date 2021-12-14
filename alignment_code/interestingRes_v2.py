@@ -1,7 +1,16 @@
+"""
+Author: Claire LeBlanc
+Last updated: 12/14/2021
+
+Overview: Compares grass, commelinid, monocot, and dicot genes within an alignment, 
+and identifies amino acid residues where the residue is the same within a group, and 
+different than the other group(s), which could potentially hint at important amino acids 
+and/or differing evolutionary pressures. 
+"""
+
 import argparse, textwrap
 import sys
 
-# these will hold the aminio acids at the current residue position for genes in the specified group
 grass_list = []
 comm_list = []
 mono_list = []
@@ -10,15 +19,16 @@ grass_comm_list = []
 grass_comm_mono_list = []
 comm_mono_di_list = []
 mono_di_list = []
-location = ""
 
 description = ""
 
-#HELPER FUNCTIONS
+## HELPER FUNCTIONS
+
+# Creates a list of amino acids in each group at a specific residue
 def initalize_groups(list, i):
 
     amino_acid = list[i]
-    
+        
     for j in grass:
         grass_list.append(amino_acid[j -1])
         grass_comm_list.append(amino_acid[j -1])
@@ -41,30 +51,33 @@ def initalize_groups(list, i):
         comm_mono_di_list.append(amino_acid[j-1])
         mono_di_list.append(amino_acid[j-1])
 
-def structure_location(i): 
-    location = ""
-    if ((i+1) < struct_start | (i + 1 > struct_end)):
-        location = "oustide of modeled protein"
-    else: 
-        location = "within modeled protein"
-
+# Creates the final table and calls the test funcion to run the analysis
 def make_output_table(i):
     g_label = ""
     cmd_label = ""
+    c_label = ""
     md_label = ""
     gcm_label = ""
     d_label = ""
     description = ""
-
-    g_label = test(grass_list, comm_mono_di_list, "grasses")
-    cmd_label = test(comm_mono_di_list, grass_list, "non-grasses")
     
-    c_label = test(grass_comm_list, mono_di_list, "commelinids")
-    md_label = test(mono_di_list, grass_comm_list, "non-commelinids")
+    if ((i+1 < struct_start) | (i + 1 > struct_end)):
+        location = "outside of modeled protein"
+    else: 
+        location = "within modeled protein"
     
-    gcm_label = test(grass_comm_mono_list, di_list, "monocots")
-    d_label = test(di_list, grass_comm_mono_list, "dicots")
-
+    if ((len(grass_list) > 0) & (len(comm_mono_di_list) > 0)):
+        g_label = test(grass_list, comm_mono_di_list, "grasses")
+        cmd_label = test(comm_mono_di_list, grass_list, "non-grasses")
+    
+    if ((len(grass_comm_list) > 0) & (len(mono_di_list) > 0)):
+        c_label = test(grass_comm_list, mono_di_list, "commelinids")
+        md_label = test(mono_di_list, grass_comm_list, "non-commelinids")
+    
+    if ((len(grass_comm_mono_list) > 0) & (len(di_list) > 0)):
+        gcm_label = test(grass_comm_mono_list, di_list, "monocots")
+        d_label = test(di_list, grass_comm_mono_list, "dicots")
+    
     description = g_label+ cmd_label + c_label + md_label + gcm_label + d_label 
 
     if (len(description) > 0):
@@ -77,6 +90,7 @@ def make_output_table(i):
         else: 
             print(str(i + 1) + "\t" + description)
             
+# Takes in the amino acids in two groups (i.e. grasses and non-grasses) and runs a variety of tests
 def test(list1, list2, name):
     tag = ""
     if ( (all_equal (list1)) & (not_equal (list2, list1))): 
@@ -95,7 +109,8 @@ def test(list1, list2, name):
         tag += (name + " are polar uncharged | ")
     
     return tag 
-    
+
+# Tests whether all the amino acids are the same
 def all_equal(list):
     for c in list:
         if (list[0] == '-'):
@@ -104,60 +119,70 @@ def all_equal(list):
             return False
     return True
 
+# Tests whether none of the the amino acids in one list are in the other
 def not_equal(listA, listB): 
     for c in listA:
         if (len(listB) > 0) & ((c == listB[0]) & (c != '-')):
             return False
     return True
 
+# Tests whether all the amino acids are hydrophobic
 def all_hydrophobic(list): 
     for c in list:
         if ((c != 'A') & (c != 'V') & (c != 'L') & (c != 'I')  & (c != 'P') & (c != 'F') & (c != 'M') & (c !='W') | (c == '-')):
             return False
     return True
 
+# Tests if none of the amino acids are hydrophobic
 def no_hydrophobic(list):
     for c in list:
         if ((c == 'A') | (c == 'V') | (c == 'L') | (c == 'I') | (c == 'P') | (c == 'F') | (c == 'M') | (c =='W')): 
             return False
     return True
 
+# Tests if all the amino acids are positive
 def all_positive(list): 
     for c in list: 
         if ((c != 'R') & (c != 'H') & (c != 'K') | (c == '-')): 
             return False
     return True
 
+# Tests if none of the amino acids are positive
 def no_positive(list): 
     for c in list: 
         if ((c == 'R') | (c == 'H') | (c == 'K')): 
             return False
     return True
 
+# Tests is all the amino acids are negative
 def all_negative(list):
     for c in list: 
         if ((c != 'D') & (c != 'E') | (c == '-')): 
             return False
     return True
 
+# Tests if none of the amino acids are negative
 def no_negative(list): 
     for c in list: 
         if ((c == 'D') | (c == 'E')): 
             return False
     return True
 
+# Tests if all the amino acids are polar uncharged
 def all_polar_uncharged(list): 
     for c in list:
         if ((c != 'S') & (c != 'T') & (c != 'N') & (c != 'Q') | (c == '-')): 
             return False
     return True
 
+# Tests if none of the amino acids are polar uncharged
 def no_polar_uncharged(list): 
     for c in list: 
         if ((c == 'S') | (c == 'T') | (c == 'N') | (c == 'Q')):
             return False
     return True
 
+# Code for processing and reading in command line arguments
 inPath = ""
 outPath = ""
 parser = argparse.ArgumentParser(add_help = True)
@@ -191,7 +216,7 @@ if args.grass is not None:
 else: 
     grass = []
 if args.comm is not None: 
-    comm = args.comm
+    comm = args.comm 
 else: 
     comm = []
 if args.mono is not None: 
@@ -264,7 +289,8 @@ else:
     else:
         struct_start = 0
         struct_end = 0
-        
+ 
+# Reading the input file and changing it into a more parsable format 
 first = 0
 
 lines = inFile.readlines()
@@ -301,9 +327,9 @@ while (j < len(lines)):
                     k += 1 
     j+=1
 
-# Note: Alignment sequences cannot have newline characters within them
 coord = 0
 
+# Printing the headers for the file
 if (include_aa & include_struct):
     print("coordinate\tdescription\tgrass amino acids\tnon-grass commelinid amino acids\tnon-commelinid monocot amino acids\tdicot amino acids_list\tlocation in structure")
 elif (include_aa):
@@ -313,7 +339,7 @@ elif (include_struct):
 else: 
     print("coordinate\tdescription")
 
-
+# Going through the alignment and testing each position
 while (coord < len(big_list)):
     grass_list = []
     comm_list = []
@@ -325,7 +351,6 @@ while (coord < len(big_list)):
     mono_di_list = []
     
     initalize_groups(big_list, coord)
-    structure_location(coord)
     make_output_table(coord)
     coord += 1
     
