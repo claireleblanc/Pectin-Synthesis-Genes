@@ -28,7 +28,7 @@ There are a few other options in the code.
 
 ### Example
 
-python3 interestingRes.py -i "../../Downloads/alignments_3/clade1_3.fa.mafft.align" -aa -gr 3 15 -c 16 -cr 1 2 -mr 17 24 
+'''python3 interestingRes.py -i "../../Downloads/alignments_3/clade1_3.fa.mafft.align" -aa -gr 3 15 -c 16 -cr 1 2 -mr 17 24''' 
 
 ## How to clade_analysis.py 
 This code runs the alignment analysis for multiple clades, but does not include the structure analysis. To run this code, you need: 
